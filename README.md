@@ -19,7 +19,7 @@
   - URL : https://github.com/reduxjs/redux
   - 설명 : 애플리케이션의 상태 관리를 도와주는 라이브러리
   - 사용법
-    1.  npm install redux react-redux로 설치
+    1.  npm install npm install @reduxjs/toolkit react-redux로 설치
     2.  중앙에서 상태를 관리할 수 있는 스토어 설정
 
 - Material-UI
