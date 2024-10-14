@@ -38,10 +38,6 @@
     1.  npm install axios로 설치
     2.  API 호출을 통해 데이터 가져오기
 
-- TMDB API (The Movie Database API)
-  - URL : https://www.themoviedb.org/
-  - 설명 : 영화 및 TV 프로그램에 대한 방대한 데이터베이스에 접근 할 수 있는 API로 사용자들이 직접 콘텐츠를 추가하고 업데이트할 수 있는 오픈소스 플랫폼
-  - 사용법
-    1.  API 키 발급
-    2.  API 앤드포인트 (GET)
-    3.  응답 처리
+- 데이터 API
+  - URL : https://yts.mx/api#list_movies
+  - 설명 : 영화 데이터 API
