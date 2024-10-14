@@ -12,7 +12,7 @@
    - 설명 : SPA(Single Page Application)에서 페이지 간의 탐색을 관리하는 라이브러리
    - 사용법
      1. npm install react-router-dom으로 설치
-     2. <BrouwserRouter>, <Router> 컴포넌트를 사용하여 라우팅 설정
+     2. BrouwserRouter, Router 컴포넌트를 사용하여 라우팅 설정
 
 3. Redux
 
