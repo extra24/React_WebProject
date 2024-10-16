@@ -24,10 +24,10 @@
 
 - Material-UI
 
-  - URL : https://github.com/mui/material-ui
+  - URL : https://mui.com/material-ui/material-icons/?query=abou
   - 설명 : Google의 Material Desingn을 기반으로 한 React UI 프레임워크
   - 사용법
-    1.  npm install @mui/material @emotion/react @emaotion/styed로 설치
+    1.  npm install @mui/material @emotion/react @emaotion/styed, @mui/icons-material
     2.  컴포넌트를 불러와 사용
 
 - Axios

@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+//@TODO : 상세 설명을 한글로 번역, 요약해주는 AI 추가
+
 //Movies : 영화 상세 정보 컴포넌트
 function Movies({ id, coverImg, title, summary, genres }) {
   return (
