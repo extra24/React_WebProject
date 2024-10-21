@@ -15,10 +15,10 @@ const Navigation = () => {
   useEffect(() => {
     if (location.pathname === "/") {
       setValue("home");
-    } else if (location.pathname === "/about") {
-      setValue("about");
     } else if (location.pathname === "/movies") {
       setValue("movies");
+    } else if (location.pathname === "/about") {
+      setValue("about");
     }
   }, [location.pathname]);
 
@@ -60,18 +60,18 @@ const Navigation = () => {
           icon={<HomeIcon />}
         ></Tab>
         <Tab
-          value="about"
-          label="About"
-          component={Link}
-          to="/about"
-          icon={<InfoIcon />}
-        ></Tab>
-        <Tab
           value="movies"
           label="Movies"
           component={Link}
           to="/movies"
           icon={<MovieIcon />}
+        ></Tab>
+        <Tab
+          value="about"
+          label="About"
+          component={Link}
+          to="/about"
+          icon={<InfoIcon />}
         ></Tab>
       </Tabs>
     </Box>
