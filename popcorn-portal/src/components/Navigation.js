@@ -28,7 +28,16 @@ const Navigation = () => {
 
   // navigatior ui
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "60%",
+        border: "1px solid #F28C0F",
+        borderRadius: 5,
+        overflow: "hidden",
+        margin: "0 auto",
+        height: "64px",
+      }}
+    >
       <Tabs
         value={value}
         onChange={handleChange}

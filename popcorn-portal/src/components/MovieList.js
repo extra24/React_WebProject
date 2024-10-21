@@ -34,9 +34,16 @@ const MovieList = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <h1>PopCorn Portal Movie List</h1>
-      <Grid2 container spacing={2} columns={16}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: "flex", // 추가된 부분
+        justifyContent: "center", // 추가된 부분
+        alignItems: "center", // 추가된 부분
+        marginTop: "50px",
+      }}
+    >
+      <Grid2 container spacing={2} columns={16} justifyContent="center">
         {items.map((movie) => (
           <Grid2 xs={12} sm={6} md={4} lg={3} key={movie.id}>
             <Boxes sx={{ width: "100%", maxWidth: "250px" }}>
