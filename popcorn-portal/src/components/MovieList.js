@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux"; // Redux 사용
 import { fetchMovies } from "../slices/movieSlice";
 import Movies from "./Movies";
 import { experimentalStyled as styled } from "@mui/material/styles"; // Material styles 사용
-import { Box, Paper, Grid2, CircularProgress } from "@mui/material"; // Material-UI Box, Paper, Grid2 사용
+import { Container, Box, Paper, Grid2, CircularProgress } from "@mui/material"; // Material-UI Box, Paper, Grid2 사용
+import Footer from "./Footer";
 
 const MovieList = () => {
   // 데이터 전달
@@ -41,32 +42,35 @@ const MovieList = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        display: "flex", // 추가된 부분
-        justifyContent: "center", // 추가된 부분
-        alignItems: "center", // 추가된 부분
-      }}
-    >
-      <Grid2 container spacing={2} columns={16} justifyContent="center">
-        {items.map((movie) => (
-          <Grid2 xs={12} sm={6} md={4} lg={3} key={movie.id}>
-            <Boxes sx={{ width: "100%", maxWidth: "250px" }}>
-              {/** 각 영화 정보를 보여주는 Movies 컴포넌트 */}
-              <Movies
-                key={movie.id} // React 내 고유 key
-                id={movie.id} // 컴포넌트에서 사용할 Id값
-                coverImg={movie.medium_cover_image}
-                title={movie.title}
-                summary={movie.summary}
-                genres={movie.genres}
-              />
-            </Boxes>
-          </Grid2>
-        ))}
-      </Grid2>
-    </Box>
+    <Container>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: "flex", // 추가된 부분
+          justifyContent: "center", // 추가된 부분
+          alignItems: "center", // 추가된 부분
+        }}
+      >
+        <Grid2 container spacing={2} columns={16} justifyContent="center">
+          {items.map((movie) => (
+            <Grid2 xs={12} sm={6} md={4} lg={3} key={movie.id}>
+              <Boxes sx={{ width: "100%", maxWidth: "250px" }}>
+                {/** 각 영화 정보를 보여주는 Movies 컴포넌트 */}
+                <Movies
+                  key={movie.id} // React 내 고유 key
+                  id={movie.id} // 컴포넌트에서 사용할 Id값
+                  coverImg={movie.medium_cover_image}
+                  title={movie.title}
+                  summary={movie.summary}
+                  genres={movie.genres}
+                />
+              </Boxes>
+            </Grid2>
+          ))}
+        </Grid2>
+      </Box>
+      <Footer />
+    </Container>
   );
 };
 

@@ -10,6 +10,7 @@ import {
   CardMedia,
   Button,
 } from "@mui/material";
+import Footer from "./Footer";
 
 const About = () => {
   return (
@@ -74,6 +75,7 @@ const About = () => {
           </CardActions>
         </Card>
       </Box>
+      <Footer />
     </Container>
   );
 };
