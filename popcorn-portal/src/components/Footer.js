@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 
 //Footer 컴포넌트
 const Footer = () => {
@@ -11,12 +11,15 @@ const Footer = () => {
         textAlign: "center",
       }}
     >
-      <Typography variant="body2" color="text.secondary">
-        &copy; Kim Aram {new Date().getFullYear()}
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-        Contact Me : extra24@email.com
-      </Typography>
+      <Divider />
+      <Box sx={{ p: 2 }}>
+        <Typography variant="body2" color="text.secondary">
+          &copy; Kim Aram {new Date().getFullYear()}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Contact Me : extra24@email.com
+        </Typography>
+      </Box>
     </Box>
   );
 };
