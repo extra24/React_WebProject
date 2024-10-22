@@ -29,6 +29,7 @@ const MovieList = () => {
     display: "flex", // flexbox 레이아웃 설정
     flexDirection: "column", // 세로로 정렬
     justifyContent: "flex-start", // 시작점에서 정렬
+    width: "250px",
   }));
 
   if (loading)
@@ -46,15 +47,15 @@ const MovieList = () => {
       <Box
         sx={{
           flexGrow: 1,
-          display: "flex", // 추가된 부분
-          justifyContent: "center", // 추가된 부분
-          alignItems: "center", // 추가된 부분
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Grid2 container spacing={2} columns={16} justifyContent="center">
           {items.map((movie) => (
             <Grid2 xs={12} sm={6} md={4} lg={3} key={movie.id}>
-              <Boxes sx={{ width: "100%", maxWidth: "250px" }}>
+              <Boxes>
                 {/** 각 영화 정보를 보여주는 Movies 컴포넌트 */}
                 <Movies
                   key={movie.id} // React 내 고유 key
