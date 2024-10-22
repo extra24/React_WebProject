@@ -15,7 +15,7 @@ const Footer = () => {
         &copy; Kim Aram {new Date().getFullYear()}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        Contact Me : 6aram@naver.com
+        Contact Me : extra24@email.com
       </Typography>
     </Box>
   );
