@@ -1,13 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios"; // fetch대신 Axios 사용
 
 // 비동기 액션
-export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
-  const response = await fetch(
-    "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
-  );
-  const json = await response.json();
-  return json.data.movies; // 영화 목록 반환
-});
+export const fetchMovies = createAsyncThunk(
+  "movies/fetchMovies",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        "https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year"
+      );
+      return response.data.data.movies; // 영화 목록 반환
+    } catch (error) {
+      // 에러가 발생했을 때 rejectWithValue를 통해 에러 메시지 반환
+      return rejectWithValue(error.response?.data?.message || "Wrong Message");
+    }
+  }
+);
 
 // 영화 관련 상태와 액션을 관리할 슬라이스 생성
 /* Slice의 주요 구성 요소
