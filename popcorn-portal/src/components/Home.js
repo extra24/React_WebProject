@@ -8,7 +8,6 @@ const Home = () => {
         display: "flex",
         justifyContent: "center", // 수평 중앙 정렬
         alignItems: "center", // 수직 중앙 정렬
-        height: "100vh", // 전체 화면 높이 사용
       }}
     >
       <Paper elevation={3} sx={{ width: 700, height: 800, overflow: "hidden" }}>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"; // Redux 사용
 import { fetchMovies } from "../slices/movieSlice";
 import Movies from "./Movies";
 import { experimentalStyled as styled } from "@mui/material/styles"; // Material styles 사용
-import { Box, Paper, Grid2 } from "@mui/material"; // Material-UI Box, Paper, Grid2 사용
+import { Box, Paper, Grid2, CircularProgress } from "@mui/material"; // Material-UI Box, Paper, Grid2 사용
 
 const MovieList = () => {
   // 데이터 전달
@@ -30,7 +30,14 @@ const MovieList = () => {
     justifyContent: "flex-start", // 시작점에서 정렬
   }));
 
-  if (loading) return <p>로딩중...</p>;
+  if (loading)
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -40,7 +47,6 @@ const MovieList = () => {
         display: "flex", // 추가된 부분
         justifyContent: "center", // 추가된 부분
         alignItems: "center", // 추가된 부분
-        marginTop: "50px",
       }}
     >
       <Grid2 container spacing={2} columns={16} justifyContent="center">
