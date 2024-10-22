@@ -3,7 +3,6 @@ import {
   Container,
   Typography,
   Box,
-  Grid2,
   Card,
   CardActions,
   CardContent,
@@ -11,6 +10,9 @@ import {
   Button,
 } from "@mui/material";
 import Footer from "./Footer";
+import FeatureDialog from "./dialogs/FeatureDialog"; // 기능 설명 다이얼로그
+import OpenSourceDialog from "./dialogs/OpenSourceDialog"; // 오픈 소스 다이얼로그
+import MoreInfoDialog from "./dialogs/MoreInfoDialog"; // 개발 노트 더 보기 다이얼로그
 
 const About = () => {
   return (
@@ -47,8 +49,8 @@ const About = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">기능 설명</Button>
-            <Button size="small">사용된 오픈소스</Button>
+            <FeatureDialog />
+            <OpenSourceDialog />
           </CardActions>
         </Card>
 
@@ -71,7 +73,7 @@ const About = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">더 보기</Button>
+            <MoreInfoDialog />
           </CardActions>
         </Card>
       </Box>
