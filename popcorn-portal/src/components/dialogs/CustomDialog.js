@@ -5,14 +5,13 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  Typography,
 } from "@mui/material";
 
 const CustomDialog = ({ open, onClose, title, content }) => {
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={onClose} // onClose 함수 연결
       fullWidth
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -21,9 +20,7 @@ const CustomDialog = ({ open, onClose, title, content }) => {
       <DialogTitle id="alert-dialog-title" sx={{ fontWeight: "bold" }}>
         {title}
       </DialogTitle>
-      <DialogContent id="alert-dialog-description">
-        <Typography variant="body2">{content}</Typography>
-      </DialogContent>
+      <DialogContent id="alert-dialog-description">{content}</DialogContent>
       <DialogActions>
         <Button onClick={onClose}>닫기</Button>
       </DialogActions>

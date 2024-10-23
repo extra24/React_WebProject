@@ -39,5 +39,9 @@
     2.  API 호출을 통해 데이터 가져오기
 
 - 데이터 API
+
   - URL : https://yts.mx/api#list_movies
   - 설명 : 영화 데이터 API
+
+  - URL : https://api.github.com/repos/{유저명}/{저장소명}/commits
+  - 설명 : Github 특정 저장소의 커밋역 불러오는 API
