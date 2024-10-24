@@ -1,5 +1,17 @@
 # 참고 오픈소스
 
+- TensorFlow
+
+  - URL : https://www.tensorflow.org
+  - 설명 : 오픈 소스 머신러닝 프레임워크로, 다양한 머신러닝 및 딥러닝 모델을 구축하고 훈련시키는 데 사용된다. 특히 대규모 데이터셋을 처리하고, 복잡한 수치 연산을 효율적으로 수행할 수 있는 기능을 제공한다.
+  - 사용법 : pip를 사용하여 설치할 수 있으며, pip install tensorflow 명령어로 설치 후, 필요한 모듈을 임포트하여 모델을 구성하고 훈련할 수 있다.
+
+- Flask
+
+  - URL: https://flask.palletsprojects.com/
+  - 설명: Flask는 파이썬으로 작성된 경량 웹 프레임워크로, 웹 애플리케이션과 RESTful API를 쉽게 개발할 수 있도록 도와준다. 간단한 구조로 빠른 개발이 가능하며, 필요에 따라 다양한 확장 기능을 추가할 수 있다.
+  - 사용법: pip install Flask 명령어로 Flask를 설치한 후, 기본적인 Flask 애플리케이션을 생성하고 라우트를 설정하여 사용할 수 있다.
+
 - Create React App
 
   - URL : https://github.com/facebook/create-react-app
