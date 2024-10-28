@@ -17,6 +17,35 @@ export const fetchMovies = createAsyncThunk(
   }
 );
 
+// 영화 포스터를 서버로 전송하여 감정 예측 결과를 받아오는 비동기 액션
+export const fetchEmotion = createAsyncThunk(
+  "movies/fetchEmotion",
+  async (imgFile, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", imgFile);
+
+      const response = await axios.post(
+        "http://localhost:5000/predict", // API 앤드포인트
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
+      // 서버에서 반환된 이미지 특성 및 감정/분위기 예측 결과
+      return {
+        features: response.data.features,
+        predictedEmotion: response.data.predicted_emotion,
+      };
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Emotion prediction failled"
+      );
+    }
+  }
+);
+
 // 영화 관련 상태와 액션을 관리할 슬라이스 생성
 /* Slice의 주요 구성 요소
  * 1. 이름 : 슬라이스 이름
@@ -33,6 +62,10 @@ const movieSlice = createSlice({
     items: [], // 영화 목록
     loading: false,
     error: null,
+    emotionResult: null, // 감정 예측 결과
+    emotionLoading: false, // 감정 예측 요청 상태
+    emotionError: null, // 감정 예측 에러
+    features: null, // 이미지 특성 저장
   },
   //3. 리듀서
   reducers: {
@@ -53,6 +86,7 @@ const movieSlice = createSlice({
   //5. Extra Reducer
   extraReducers: (builder) => {
     builder
+      // 영화 목록 로드
       .addCase(fetchMovies.pending, (state) => {
         state.loading = true;
       })
@@ -63,6 +97,20 @@ const movieSlice = createSlice({
       .addCase(fetchMovies.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      // 감정 예측 로드
+      .addCase(fetchEmotion.pending, (state) => {
+        state.emotionLoading = true;
+        state.emotionError = null;
+      })
+      .addCase(fetchEmotion.fulfilled, (state, action) => {
+        state.loading = false;
+        state.emotionResult = action.payload.predictedEmotion; // 감정 예측 결과 저장
+        state.features = action.payload.features; // 특성 결과 저장
+      })
+      .addCase(fetchEmotion.rejected, (state, action) => {
+        state.emotionLoading = false;
+        state.emotionError = action.payload;
       });
   },
 });

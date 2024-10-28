@@ -1,15 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"; // Redux 사용
-import { fetchMovies } from "../slices/movieSlice";
+import { fetchMovies, fetchEmotion } from "../slices/movieSlice"; // movieList, 감정 예측 액션
 import Movies from "./Movies";
 import { experimentalStyled as styled } from "@mui/material/styles"; // Material styles 사용
-import { Container, Box, Paper, Grid2, CircularProgress } from "@mui/material"; // Material-UI Box, Paper, Grid2 사용
+import {
+  Container,
+  Box,
+  Paper,
+  Grid2,
+  CircularProgress,
+  Button,
+} from "@mui/material"; // Material-UI Box, Paper, Grid2 사용
 import Footer from "./Footer";
 
 const MovieList = () => {
   // 데이터 전달
   const dispatch = useDispatch();
-  const { items, loading, error } = useSelector((state) => state.movies);
+  const { items, loading, error, emotionResult, emotionLoading, emotionError } =
+    useSelector((state) => state.movies);
 
   useEffect(() => {
     dispatch(fetchMovies());
@@ -31,6 +39,12 @@ const MovieList = () => {
     justifyContent: "flex-start", // 시작점에서 정렬
     width: "250px",
   }));
+
+  // 감정/분위기 예측 요청 핸들러
+  const handleEmotionPrediction = (movie) => {
+    const imgFile = new File([], movie.medium_cover_image); // 이미지 경로를 파일 객체로 변환
+    dispatch(fetchEmotion(imgFile));
+  };
 
   if (loading)
     return (
@@ -65,6 +79,21 @@ const MovieList = () => {
                   summary={movie.summary}
                   genres={movie.genres}
                 />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleEmotionPrediction(movie)}
+                  sx={{ mt: 2 }}
+                  disabled={emotionLoading} // 감정 예측 로딩 중에는 버튼 비활성화
+                >
+                  predict emotion
+                </Button>
+                {emotionResult && (
+                  <Box sx={{ mt: 2 }}>
+                    <h4>#</h4>
+                    <p>{emotionResult}</p>
+                  </Box>
+                )}
               </Boxes>
             </Grid2>
           ))}
