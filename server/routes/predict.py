@@ -15,7 +15,18 @@ predict_bp = Blueprint('predict',__name__)
 
 # 사전에 저장된 감성/분위기 모델 불러오기
 emotion_model = create_model()
-emotion_model.load_weights('path_to_saved_model.h5') # 저장된 모델의 가중치를 불러온다.
+
+# 감정/분위기 모델 가중치 파일 경로
+model_weights_path = 'path_to_saved_model.h5'
+
+# 가중치 파일이 존재하지 않을 경우 더미 모델을 사용
+if not os.path.exists(model_weights_path):
+    print(f"{model_weights_path} 파일이 존재하지 않아 더미 모델을 사용합니다.")
+    # 더미 모델을 초기화 (아무 동작도 하지 않음)
+    emotion_model.build((None, 224, 224, 3))  # 모델 구조를 정의
+    emotion_model.summary()  # 모델 구조를 확인
+else:
+    emotion_model.load_weights(model_weights_path)  # 저장된 모델의 가중치를 불러온다.
 
 # 감정 카테고리 정의 (5개의 감정 - 기쁨/슬픔/흥분됨/두려움/중립적)
 emotion_labels = ['Happy', 'Sad', 'Excited', 'Fearful', 'Neutral']
