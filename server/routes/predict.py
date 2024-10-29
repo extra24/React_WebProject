@@ -17,7 +17,7 @@ predict_bp = Blueprint('predict',__name__)
 emotion_model = create_model()
 
 # 감정/분위기 모델 가중치 파일 경로
-model_weights_path = 'path_to_saved_model.h5'
+model_weights_path = 'models/emotion_model_weights.h5'
 
 # 가중치 파일이 존재하지 않을 경우 더미 모델을 사용
 if not os.path.exists(model_weights_path):
