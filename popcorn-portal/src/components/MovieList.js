@@ -16,8 +16,9 @@ import Footer from "./Footer";
 const MovieList = () => {
   // 데이터 전달
   const dispatch = useDispatch();
-  const { items, loading, error, emotionResult, emotionLoading, emotionError } =
-    useSelector((state) => state.movies);
+  const { items, loading, error, emotionResult, emotionLoading } = useSelector(
+    (state) => state.movies
+  );
 
   useEffect(() => {
     dispatch(fetchMovies());
