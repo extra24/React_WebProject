@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.featureExtractionModel import extract_feature
-from models.emotionModel import create_model # 감정/분위기 예측 모델 로드
+from models.emotionModel import create_emotion_model # 감정/분위기 예측 모델 로드
 import os
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
@@ -14,7 +14,7 @@ import numpy as np
 predict_bp = Blueprint('predict',__name__)
 
 # 사전에 저장된 감성/분위기 모델 불러오기
-emotion_model = create_model()
+emotion_model = create_emotion_model()
 
 # 감정/분위기 모델 가중치 파일 경로
 model_weights_path = 'models/emotion_model_weights.h5'
