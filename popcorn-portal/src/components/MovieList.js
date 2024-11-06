@@ -10,10 +10,17 @@ import {
   Grid2,
   CircularProgress,
   Button,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material"; // Material-UI Box, Paper, Grid2 사용
 import Footer from "./Footer";
 
 const MovieList = () => {
+  //반응형으로 페이지 타이틀 나오게 수정
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   // 데이터 전달
   const dispatch = useDispatch();
   const { items, loading, error, emotionResult, emotionLoading } = useSelector(
@@ -63,10 +70,22 @@ const MovieList = () => {
         sx={{
           flexGrow: 1,
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
           alignItems: "center",
+          gap: 2,
         }}
       >
+        <Box
+          sx={{
+            maxWidth: isSmallScreen ? "90%" : "875px", // Box와 동일한 너비
+            width: "100%", // 부모 요소의 크기에 맞춤
+            textAlign: "left",
+          }}
+        >
+          <Typography variant="h4" component="h2">
+            Movie List
+          </Typography>
+        </Box>
         <Grid2 container spacing={2} columns={16} justifyContent="center">
           {items.map((movie) => (
             <Grid2 xs={12} sm={6} md={4} lg={3} key={movie.id}>

@@ -1,20 +1,52 @@
 import React from "react";
-import { Container, Box, Paper, ImageList, ImageListItem } from "@mui/material";
+import {
+  Container,
+  Box,
+  Paper,
+  ImageList,
+  ImageListItem,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Footer from "./Footer";
 
 const Home = () => {
+  //반응형으로 페이지 타이틀 나오게 수정
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Container>
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center", // 수평 중앙 정렬
+          flexDirection: "column",
           alignItems: "center", // 수직 중앙 정렬
+          gap: 2, // 상단 제목과 이미지 리스트 간격 조절
         }}
       >
+        {/* 페이지 제목 */}
+        <Box
+          sx={{
+            maxWidth: isSmallScreen ? "90%" : "700px", // Paper와 동일한 너비
+            width: "100%",
+            textAlign: "left",
+          }}
+        >
+          <Typography variant="h4" component="h2">
+            Popcorn Portal
+          </Typography>
+        </Box>
+
+        {/* 이미지 리스트 */}
         <Paper
           elevation={3}
-          sx={{ width: 700, height: 800, overflow: "hidden" }}
+          sx={{
+            width: isSmallScreen ? "90%" : "700px",
+            height: 800,
+            overflow: "hidden",
+          }}
         >
           <Box
             sx={{
@@ -25,7 +57,7 @@ const Home = () => {
             }}
           >
             <ImageList
-              sx={{ width: 650, height: 750 }}
+              sx={{ width: "95%", height: "95%" }}
               cols={3}
               rowheight={164}
             >
