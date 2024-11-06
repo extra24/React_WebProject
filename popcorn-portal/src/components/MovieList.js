@@ -65,7 +65,7 @@ const MovieList = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <Container>
+    <Container maxWidth="lg">
       <Box
         sx={{
           flexGrow: 1,
@@ -79,14 +79,31 @@ const MovieList = () => {
           sx={{
             maxWidth: isSmallScreen ? "90%" : "875px", // Box와 동일한 너비
             width: "100%", // 부모 요소의 크기에 맞춤
-            textAlign: "left",
+            display: "flex",
+            justifyContent: "flex-start", // 텍스트와 버튼의 정렬을 왼쪽으로 맞추기
+            alignItems: "center",
           }}
         >
           <Typography variant="h4" component="h2">
             Movie List
           </Typography>
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{ ml: "auto" }}
+            onClick={() => handleEmotionPrediction(null)} // 특정 영화가 필요하지 않으면 null 전달
+            disabled={emotionLoading} // 감정 예측 로딩 중에는 버튼 비활성화
+          >
+            감정 / 분위기 예측
+          </Button>
         </Box>
-        <Grid2 container spacing={2} columns={16} justifyContent="center">
+        <Grid2
+          container
+          sx={{ maxWidth: isSmallScreen ? "90%" : "900px" }}
+          spacing={2}
+          columns={16}
+          justifyContent="center"
+        >
           {items.map((movie) => (
             <Grid2 xs={12} sm={6} md={4} lg={3} key={movie.id}>
               <Boxes>
@@ -99,7 +116,7 @@ const MovieList = () => {
                   summary={movie.summary}
                   genres={movie.genres}
                 />
-                <Button
+                {/* <Button
                   variant="contained"
                   color="primary"
                   onClick={() => handleEmotionPrediction(movie)}
@@ -107,7 +124,7 @@ const MovieList = () => {
                   disabled={emotionLoading} // 감정 예측 로딩 중에는 버튼 비활성화
                 >
                   predict emotion
-                </Button>
+                </Button> */}
                 {emotionResult && (
                   <Box sx={{ mt: 2 }}>
                     <h4>#</h4>
