@@ -61,3 +61,6 @@ wheel==0.44.0
 wrapt==1.16.0
 wsproto==1.2.0
 flask_cors==3.0.10
+opencv-python-headless==4.10.0.84
+pandas==2.2.3
+scikit-learn==1.5.2
