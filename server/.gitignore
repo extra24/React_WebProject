@@ -16,3 +16,5 @@ venv/
 # 데이터 셋
 .csv
 dataset/
+# 가중치
+*.h5
