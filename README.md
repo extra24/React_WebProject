@@ -1,5 +1,14 @@
 # 참고 오픈소스
 
+- FER-2013 데이터셋
+
+  - URL : https://www.kaggle.com/datasets/deadskull7/fer2013#fer2013.csv
+  - 설명 : 얼굴 이미지에서 감정을 인식하기 위해 사용되는 표준 데이터셋으로 Kaggle에서 제공하며, 48x48 크기의 흑백 이미지와 7개의 감정 클래스(Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral)로 구성되어 있다. 감정 분석, 컴퓨터 비전 및 딥러닝 모델 훈련에 널리 활용된다.
+  - 사용법
+    1.  Kaggle에서 fer2013.csv 파일을 다운로드하고, 모델 훈련을 위한 프로젝트 디렉토리에 저장
+    2.  pandas를 사용해 데이터를 로드한 후, pixels 열을 통해 이미지를 배열 형태로 변환하고, emotion 열을 통해 라벨 부여
+    3.  전처리된 데이터를 train_test_split으로 학습/검증 세트로 분리하고, 딥러닝 모델에 입력해 학습한다.
+
 - TensorFlow
 
   - URL : https://www.tensorflow.org
