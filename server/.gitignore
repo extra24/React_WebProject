@@ -13,3 +13,6 @@ venv/
 .ipynb_checkpoints
 # 환경 파일
 .env
+# 데이터 셋
+.csv
+dataset/
