@@ -1,36 +1,29 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import pandas as pd
+import numpy as np
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator # 이미지를 실시간으로 전처리하는 도구
+from tensorflow.keras.utils import to_categorical
+from sklearn.model_selection import train_test_split
 from models.emotionModel import create_emotion_model # 모델 정의 파일에서 import
+import config
 
-''' 감정/분위기 예측 모델을 생성하고 학습, 학습 후 가중치를 파일로 저장'''
+''' FER-2013 csv 데이터셋을 이용해 감정 예측 모델을 학습시키는 파일'''
 
-#모델 생성
+# 데이터 로드
+data = pd.read_csv(config.DATASET_PATH)
+pixels = data['pixels'].tolist()
+images = np.array([np.fromstring(pixel, dtype=int, sep=' ').reshape(48, 48, 1) for pixel in pixels])
+labels = to_categorical(data['emotion'], num_classes=7)
+
+# 데이터 분할
+X_train, X_val, y_train, y_val = train_test_split(images, labels, test_size=0.2, random_state=42)
+
+# 모델 생성 및 학습
 model = create_emotion_model()
-
-# 데이터 전처리 및 학습/검증 데이터 생성기
-train_datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
-train_generator = train_datagen.flow_from_directory(
-    'dataset', # 이미지 데이터셋 경로
-    target_size={224, 224},
-    batch_size=32,
-    class_mode='categorical',
-    subset='training' # 훈련 데이터
-)
-validation_generator = train_datagen.flow_from_directory(
-    'dataset',
-    target_size={224, 224},
-    batch_size=32,
-    class_mode='categorical',
-    subset='validation' #검증 데이터
-)
-
-# 모델 학습  train_generator 미니 배치를 가져와 모델에 학습시키고 validation_data로 성능을 평가
-history = model.fit(
-    train_generator,
-    epochs=10,
-    validation_data=validation_generator
-)
+history = model.fit(X_train, y_train, epochs=30, batch_size=64, validation_data=(X_val, y_val))
 
 # 학습된 모델 가중치 저장
-model.save('models/emotion_model_weights.h5')
-print("Model Trained!!!!")
+model.save(config.MODEL_WEIGHTS_PATH)
+print("Model 학습완료 후 저장!")
