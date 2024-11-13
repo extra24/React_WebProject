@@ -1,4 +1,76 @@
-# 참고 오픈소스
+# Popcorn Portal : AI 기반 감정 분석과 영화 정보 제공 플랫폼
+
+### 프로젝트 소개
+
+이 프로젝트는 영화 정보 제공과 함께 영화 포스터의 감정/분위기를 예측하는 시스템을 구축한 영화 웹 애플리케이션입니다.
+이를 위해 영화 정보 API와 TensorFlow를 사용하여 딥러닝 모델을 적용하였으며, 영화별 분위기를 사용자에게 시각적으로 전달할 수 있도록 설계되었습니다.
+
+### 기능 목록
+
+- **영화 목록 조회**: 영화 목록을 제공하고 각 영화의 정보(제목, 줄거리, 포스터)를 표시합니다.
+- **감정/분위기 예측**: 포스터 이미지를 분석하여 해당 영화의 감정이나 분위기를 예측하여 시각화된 결과를 제공합니다.
+- **GitHub 커밋 내역 조회**: 특정 GitHub 저장소의 커밋 기록을 불러와 프로젝트의 최신 업데이트를 확인할 수 있습니다.
+
+### 스크린샷
+
+- main 화면
+  <img src="popcorn-portal/public/images/popcornportal1.png" width="40%" height="50%" title="pic1" alt="pic1"></img><br/>
+
+- 영화 리스트 화면
+  <img src="popcorn-portal/public/images/popcornportal2.png" width="40%" height="50%" title="pic2" alt="pic2"></img><br/>
+
+- About 화면
+  <img src="popcorn-portal/public/images/popcornportal3.png" width="40%" height="50%" title="pic3" alt="pic3"></img><br/>
+
+- About -> 개발 노트 더보기 팝업창 화면
+  <img src="popcorn-portal/public/images/popcornportal4.png" width="40%" height="50%" title="pic4" alt="pic4"></img><br/>
+
+### 설치 및 실행 방법
+
+이 프로젝트는 **React**와 **Python - TensorFlow** 기반으로 구성되어 있습니다.
+
+1. 백엔드(Flask & TensorFlow) 설정
+
+- 프로젝트 디렉토리에서 가상환경을 설정하고 활성화합니다.
+
+```bash
+python -m venv venv # 가상환경 생성
+source venv/Scripts/activate # 가상환경 활성화
+```
+
+- 필요한 Python 패키지를 설치합니다.
+
+```bash
+pip install -r requirements.txt
+```
+
+- Flask 서버를 실행합니다.
+
+```bash
+python app.py
+```
+
+서버가 정상적으로 실행되면 _http://localhost:5000_ 에서 API를 확인할 수 있습니다.
+
+2. 프론트엔드 실행 (React)
+
+- React 앱 디렉토리에서 패키지를 설치합니다.
+
+```bash
+npm install
+```
+
+- React 개발 서버를 시작합니다.
+
+```bash
+npm start
+```
+
+브라우저에서 *http://localhost:3000*으로 이동하여 프론트엔드를 확인할 수 있습니다.
+
+### 기술 스택 및 오픈소스
+
+아래는 사용된 주요 오픈소스와 데이터셋입니다.
 
 - FER-2013 데이터셋
 
@@ -63,6 +135,60 @@
 
   - URL : https://yts.mx/api#list_movies
   - 설명 : 영화 데이터 API
-
+    <br>
   - URL : https://api.github.com/repos/{유저명}/{저장소명}/commits
   - 설명 : Github 특정 저장소의 커밋역 불러오는 API
+
+### 구조 및 설계
+
+<div style="border:1px solid #ddd; padding: 16px; border-radius: 8px; background-color: #f9f9f9;">
+
+```plaintext
+popcorn-portal/
+├── node_modules/
+├── public/
+└── src/
+    ├── components/
+    │   ├── dialogs/
+    │   │   ├── CustomDialog.js          # 사용자 정의 다이얼로그 컴포넌트
+    │   │   ├── FeatureDialog.js          # 기능 설명을 위한 다이얼로그
+    │   │   ├── MoreInfoDialog.js         # 추가 정보 제공 다이얼로그
+    │   │   └── OpenSourceDialog.js       # 오픈소스 관련 다이얼로그
+    │   ├── About.js                      # 소개 페이지 컴포넌트
+    │   ├── Footer.js                     # 페이지 하단의 Footer 컴포넌트
+    │   ├── Home.js                       # 홈 페이지 컴포넌트
+    │   ├── MovieList.js                  # 영화 목록을 렌더링하는 컴포넌트
+    │   ├── Movies.js                     # 영화 정보 관리 컴포넌트
+    │   ├── Navigation.js                 # 네비게이션 바 컴포넌트
+    │   └── slices/
+    │       ├── commitSlice.js            # GitHub 커밋 데이터 관리 Redux Slice
+    │       └── movieSlice.js             # 영화 데이터 관리 Redux Slice
+    ├── App.js                            # 메인 App 컴포넌트
+    ├── index.js                          # React 엔트리 파일
+    └── store.js                          # Redux 스토어 설정
+
+server/
+├── dataset/
+│   └── fer2013.csv                       # 감정 예측을 위한 데이터셋
+├── models/
+│   ├── __init__.py                       # 모델 초기화 파일
+│   ├── emotionModel_weights.h5           # 감정 예측 모델 가중치 파일
+│   ├── emotionModel.py                   # 감정 예측 모델 파일
+│   ├── emotionOutputModel.py             # 예측 결과 출력 모델
+├── routes/
+│    ├── __init__.py                      # 라우트 초기화 파일
+│    └── movieRoutes.py                   # 영화 관련 API 라우트
+├── train/
+│    └── train_emotion_model.py           # 감정 예측 모델 훈련 파일
+├── app.py                                # Flask 서버 실행
+├── config.py                             # 경로 지정 파일
+└── requirements.txt                      # 패키지 파일
+```
+
+</div>
+
+### 향후 개선 사항
+
+- UI 정리 : UI 디자인을 개선하여 사용자 경험 향상
+- 필터 기능 : 영화 장르, 감정 등의 필터를 추가해 검색 최적화
+- 검색 기능 : 사용자들이 영화를 검색할 수 있도록 검색 기능 추가
