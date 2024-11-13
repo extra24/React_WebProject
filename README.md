@@ -1,4 +1,4 @@
-# Popcorn Portal : AI 기반 감정 분석과 영화 정보 제공 플랫폼
+# AI 기반 감정 분석과 영화 정보 제공 플랫폼
 
 ### 프로젝트 소개
 
@@ -13,16 +13,16 @@
 
 ### 스크린샷
 
-- main 화면
+- main 화면  
   <img src="popcorn-portal/public/images/popcornportal1.png" width="40%" height="50%" title="pic1" alt="pic1"></img><br/>
 
-- 영화 리스트 화면
+- 영화 리스트 화면  
   <img src="popcorn-portal/public/images/popcornportal2.png" width="40%" height="50%" title="pic2" alt="pic2"></img><br/>
 
-- About 화면
+- About 화면  
   <img src="popcorn-portal/public/images/popcornportal3.png" width="40%" height="50%" title="pic3" alt="pic3"></img><br/>
 
-- About -> 개발 노트 더보기 팝업창 화면
+- About -> 개발 노트 더보기 팝업창 화면  
   <img src="popcorn-portal/public/images/popcornportal4.png" width="40%" height="50%" title="pic4" alt="pic4"></img><br/>
 
 ### 설치 및 실행 방법
