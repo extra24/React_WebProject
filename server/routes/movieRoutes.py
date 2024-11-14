@@ -16,10 +16,30 @@ model.load_weights(config.MODEL_WEIGHTS_PATH)
 
 def preprocess_image_from_url(url):
     response = requests.get(url, stream=True).raw
-    img = cv2.imdecode(np.asarray(bytearray(response.read()), dtype="unit8"), cv2.IMREAD_GRAYSCALE)
+    img = cv2.imdecode(np.asarray(bytearray(response.read()), dtype="uint8"), cv2.IMREAD_GRAYSCALE)
     img = cv2.resize(img, (48, 48))
     img = img.reshape(48, 48, 1) / 255.0
     return np.array([img])
+
+def emotion_labeling(emotion_label):
+    emotion_labels = ['Anger', 'Disgust', 'Fear', 'Happy', 'Sadness', 'Surprise', 'Neutral']
+    emotion = emotion_labels[emotion_label] 
+    return emotion  
+
+@movie_blueprint.route('/test_sample_prediction', methods=['GET'])
+def test_sample_prediction():
+    # 샘플 이미지 URL (여기서는 임의로 설정된 URL 사용)
+    sample_url = 'https://www.shutterstock.com/image-vector/social-communication-emoji-laughing-expression-260nw-1041492634.jpg'
+
+    # 이미지 전처리 및 예측
+    input_image = preprocess_image_from_url(sample_url)
+    predicted_emotion = model.predict(input_image)
+    emotion_label = np.argmax(predicted_emotion, axis=1)[0]
+
+    # 예측된 감정 라벨을 반환
+    emotion = emotion_labeling(emotion_label)
+
+    return jsonify({'predicted_emotion': emotion})    
 
 @movie_blueprint.route('/movies', methods=['GET'])
 def get_movies():
@@ -40,6 +60,9 @@ def get_movies():
         predicted_emotion  = model.predict(input_image)
         emotion_label = np.argmax(predicted_emotion, axis=1)[0]
 
+        # 예측된 감정 라벨을 반환
+        emotion = emotion_labeling(emotion_label)
+
         # 영화 정보와 감정/분위기 예측 결과를 함께 추가
         movie_data.append({
             'id': movieId,
@@ -47,6 +70,6 @@ def get_movies():
             'summary': summary,
             'genres': genres,
             'poster': poster_url,
-            'emotion_prediction': emotion_label
+            'emotion_prediction': emotion
         })        
     return jsonify({'movies': movie_data})
