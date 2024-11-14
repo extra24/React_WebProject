@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
 
 ''' CNN(Convolutional Neural Network) 구조로 만들어진 포스터의 감정/분위기 예측 모델'''
 
@@ -13,15 +13,30 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropou
 
 def create_emotion_model():
     model = Sequential()
+    
+    # 첫 번째 Convolutional Layer
     model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(48, 48, 1)))
     model.add(MaxPooling2D((2, 2)))
+    model.add(BatchNormalization())  # 배치 정규화 추가
+    
+    # 두 번째 Convolutional Layer
     model.add(Conv2D(64, (3, 3), activation='relu'))
     model.add(MaxPooling2D((2, 2)))
+    model.add(BatchNormalization())  # 배치 정규화 추가
+    
+    # 세 번째 Convolutional Layer
     model.add(Conv2D(128, (3, 3), activation='relu'))
     model.add(MaxPooling2D((2, 2)))
+    model.add(BatchNormalization())  # 배치 정규화 추가
+    
+    # 플래튼과 Dense 레이어
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(7, activation='softmax'))
+    model.add(Dropout(0.5))  # Dropout 추가하여 과적합 방지
+    
+    # 출력 레이어
+    model.add(Dense(7, activation='softmax'))  # 7개의 감정 클래스
+    
+    # 모델 컴파일
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
