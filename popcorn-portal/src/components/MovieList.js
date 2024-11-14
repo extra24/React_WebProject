@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"; // Redux 사용
-import { fetchMovies, fetchEmotion } from "../slices/movieSlice"; // movieList, 감정 예측 액션
+import { fetchMovies } from "../slices/movieSlice"; // movieList, 감정 예측 액션
 import Movies from "./Movies";
 import { experimentalStyled as styled } from "@mui/material/styles"; // Material styles 사용
 import {
@@ -23,9 +23,10 @@ const MovieList = () => {
 
   // 데이터 전달
   const dispatch = useDispatch();
-  const { items, loading, error, emotionResult, emotionLoading } = useSelector(
-    (state) => state.movies
-  );
+  const { items, loading, error } = useSelector((state) => state.movies);
+
+  // 감정 예측 표시 토글
+  const [showEmotion, setShowEmotion] = useState(false);
 
   useEffect(() => {
     dispatch(fetchMovies());
@@ -48,10 +49,9 @@ const MovieList = () => {
     width: "250px",
   }));
 
-  // 감정/분위기 예측 요청 핸들러
-  const handleEmotionPrediction = (movie) => {
-    const imgFile = new File([], movie.medium_cover_image); // 이미지 경로를 파일 객체로 변환
-    dispatch(fetchEmotion(imgFile));
+  // 감정/예측, 줄거리 버튼 토글
+  const handleToggleBtn = () => {
+    setShowEmotion((prev) => !prev);
   };
 
   if (loading)
@@ -91,10 +91,9 @@ const MovieList = () => {
             variant="outlined"
             color="primary"
             sx={{ ml: "auto" }}
-            onClick={() => handleEmotionPrediction(null)} // 특정 영화가 필요하지 않으면 null 전달
-            disabled={emotionLoading} // 감정 예측 로딩 중에는 버튼 비활성화
+            onClick={handleToggleBtn} // 감정/분위기 예측, 줄거리 토글 버튼
           >
-            감정 / 분위기 예측
+            {showEmotion ? "줄거리 보기" : "감정 / 분위기 예측"}
           </Button>
         </Box>
         <Grid2
@@ -104,33 +103,20 @@ const MovieList = () => {
           columns={16}
           justifyContent="center"
         >
-          {items.map((movie) => (
+          {items.movies.map((movie) => (
             <Grid2 xs={12} sm={6} md={4} lg={3} key={movie.id}>
               <Boxes>
                 {/** 각 영화 정보를 보여주는 Movies 컴포넌트 */}
                 <Movies
                   key={movie.id} // React 내 고유 key
                   id={movie.id} // 컴포넌트에서 사용할 Id값
-                  coverImg={movie.medium_cover_image}
+                  coverImg={movie.poster}
                   title={movie.title}
-                  summary={movie.summary}
+                  summary={
+                    showEmotion ? movie.emotion_prediction : movie.summary
+                  } // 감정 예측 또는 줄거리 표시
                   genres={movie.genres}
                 />
-                {/* <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => handleEmotionPrediction(movie)}
-                  sx={{ mt: 2 }}
-                  disabled={emotionLoading} // 감정 예측 로딩 중에는 버튼 비활성화
-                >
-                  predict emotion
-                </Button> */}
-                {emotionResult && (
-                  <Box sx={{ mt: 2 }}>
-                    <h4>#</h4>
-                    <p>{emotionResult}</p>
-                  </Box>
-                )}
               </Boxes>
             </Grid2>
           ))}
